@@ -1,6 +1,6 @@
 # At first we set working directory
 
-setwd('C:/minorBio/final_project/src')
+setwd('C:/minorBio/final_project_git/hse21_H3K4me3_G4_human/src')
 
 # libraries
 
@@ -14,10 +14,26 @@ package.check <- function(x) {
   }
 }
 
-package.check("ggplot2")
-package.check("dplyr")
-package.check("tidyr")
-package.check("tibble")
+# Installing BiocManager
+#if (!requireNamespace("BiocManager", quietly = TRUE))
+#  install.packages("BiocManager")
+#BiocManager::install("ChIPseeker")
+#BiocManager::install("TxDb.Hsapiens.UCSC.hg19.knownGene", force=TRUE)
+#BiocManager::install("clusterProfiler", force=TRUE)
+#BiocManager::install("GenomicFeatures", force=TRUE)
+#BiocManager::install("org.Hs.eg.db", force=TRUE)
+
+# Libraries from BiocManager
+library(ChIPseeker)
+library(TxDb.Hsapiens.UCSC.hg19.knownGene)
+library(clusterProfiler)
+library(GenomicFeatures)
+library(org.Hs.eg.db)
+
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(tibble)
 
 # constants
 
