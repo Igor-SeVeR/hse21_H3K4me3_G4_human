@@ -2,8 +2,8 @@
 source('lib.R')
 
 # file name, with which we work
-NAME <- 'H3K4me3_H1.ENCFF254ACI.hg19.filtered'
-#NAME <- 'H3K4me3_H1.ENCFF668YOE.hg19.filtered'
+#NAME <- 'H3K4me3_H1.ENCFF254ACI.hg19.filtered'
+NAME <- 'H3K4me3_H1.ENCFF668YOE.hg19.filtered'
 
 BED_FN <- paste0(DATA_DIR, NAME, '.bed')
 

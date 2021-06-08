@@ -24,16 +24,16 @@ package.check <- function(x) {
 #BiocManager::install("org.Hs.eg.db", force=TRUE)
 
 # Libraries from BiocManager
-library(ChIPseeker)
-library(TxDb.Hsapiens.UCSC.hg19.knownGene)
-library(clusterProfiler)
-library(GenomicFeatures)
-library(org.Hs.eg.db)
+package.check("ChIPseeker")
+package.check("TxDb.Hsapiens.UCSC.hg19.knownGene")
+package.check("clusterProfiler")
+package.check("GenomicFeatures")
+package.check("org.Hs.eg.db")
 
-library(ggplot2)
-library(dplyr)
-library(tidyr)
-library(tibble)
+package.check("ggplot2")
+package.check("dplyr")
+package.check("tidyr")
+package.check("tibble")
 
 # constants
 
