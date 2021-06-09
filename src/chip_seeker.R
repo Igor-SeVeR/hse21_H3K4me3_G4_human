@@ -5,6 +5,8 @@ source('lib.R')
 #NAME <- 'H3K4me3_H1.ENCFF254ACI.hg19.filtered'
 #NAME <- 'H3K4me3_H1.ENCFF668YOE.hg19.filtered'
 #NAME <- 'GSM3003539_Homo'
+#NAME <- 'H3K4me3_H1.merged.hg19'
+#NAME <- 'H3K4me3_H1.intersect_with_GSM3003539_Homo'
 
 BED_FN <- paste0(DATA_DIR, NAME, '.bed')
 
@@ -20,8 +22,8 @@ plotAnnoPie(peakAnno)
 dev.off()
 
 # if working with GSM3003539_Homo -> comment this part
-peak <- readPeakFile(BED_FN)
-pdf(paste0(OUT_DIR, 'chip_seeker.', NAME, '.covplot.pdf'))
-covplot(peak)
-dev.off()
+#peak <- readPeakFile(BED_FN)
+#pdf(paste0(OUT_DIR, 'chip_seeker.', NAME, '.covplot.pdf'))
+#covplot(peak)
+#dev.off()
  

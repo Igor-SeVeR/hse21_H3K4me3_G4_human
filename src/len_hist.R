@@ -10,10 +10,11 @@ source('lib.R')
 #NAME <- 'H3K4me3_H1.ENCFF668YOE.hg19.filtered'
 #NAME <- 'GSM3003539_Homo'
 #NAME <- 'H3K4me3_H1.intersect_with_GSM3003539_Homo'
+#NAME <- 'H3K4me3_H1.merged.hg19'
 
 # code to build histograms on reads length
 bed_df <- read.delim(paste0(DATA_DIR, NAME, '.bed'), as.is = TRUE, header = FALSE)
-colnames(bed_df) <- c('chrom', 'start', 'end')#, 'name', 'score') # if we build GSM3003539_Homo we need only 'chrom', 'start', 'end'. 
+colnames(bed_df) <- c('chrom', 'start', 'end', 'name', 'score') # if we build GSM3003539_Homo we need only 'chrom', 'start', 'end'. 
 bed_df$len <- bed_df$end - bed_df$start
 head(bed_df)
 
