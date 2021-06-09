@@ -13,10 +13,10 @@
 
 #### Подготовка репозитория
 
-Для начала создадим свой [github](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human) репозиторий для данного проекта. Далее склонируем данный репозиторий на сервер и создадим 3 основных папки:
-[images](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/tree/main/images) - здесь расположены все картинки (графики, скриншоты и т. д.) полученные в результате работы;
-[src](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/tree/main/src) - здесь расположены все скрипты, написанные во время выполнения проекта;
-[data](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/tree/main/data) - здесь расположены все файлы, с которыми велась работа на протяжении всего проекта.
+Для начала создадим свой [github](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human) репозиторий для данного проекта. Далее склонируем данный репозиторий на сервер и создадим 3 основных папки:  
+[images](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/tree/main/images) - здесь расположены все картинки (графики, скриншоты и т. д.) полученные в результате работы;  
+[src](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/tree/main/src) - здесь расположены все скрипты, написанные во время выполнения проекта;  
+[data](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/tree/main/data) - здесь расположены все файлы, с которыми велась работа на протяжении всего проекта.  
 Запушим все изменения на github, таким образом получим красиво оформленный, структурированный репозиторий.
 
 #### Анализ пиков гистоновой метки
@@ -67,9 +67,9 @@ isegorov@laboratory01:~/ngs/final_project$ wc -l H3K4me3_H1.ENCFF668YOE.unmapped
 132 H3K4me3_H1.ENCFF668YOE.unmapped.bed
 ```
 
-Как видим, числа не сходятся: для
-ENCFF668YOE: 34171 - 34105 != 132;
-ENCFF254ACI: 26245 - 26165 != 160.
+Как видим, числа не сходятся: для  
+ENCFF668YOE: 34171 - 34105 != 132;  
+ENCFF254ACI: 26245 - 26165 != 160.  
 Это достаточно легко объяснить - для этого изучим строение файлов umapped:
 
 
@@ -87,16 +87,16 @@ chr1    145426765       145427089       Peak_13760      71
 chr1    145427250       145430609       Peak_2612       386
 ```
 
-Как видим каждая запись занимает две строчки - причина, по которой запись не была сматчена и сама запись.
-Имея это знание, получаем иные числа:
-ENCFF668YOE: 34171 - 34105 = 66;
-ENCFF254ACI: 26245 - 26165 = 80.
-Отлично, всё сошлось.
+Как видим каждая запись занимает две строчки - причина, по которой запись не была сматчена и сама запись.  
+Имея это знание, получаем иные числа:  
+ENCFF668YOE: 34171 - 34105 = 66;  
+ENCFF254ACI: 26245 - 26165 = 80.  
+Отлично, всё сошлось.  
 Остаётся только запушить все файлы в github репозиторий.
 
 ##### Построение гистограмм длин участков
 
-Клонируем репозитрой на локальный компьютер, где и будет производиться работа по созданию данного проекта.
+Клонируем репозитрой на локальный компьютер, где и будет производиться работа по созданию данного проекта.  
 Напишем [скрипт](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/src/len_hist.R) для построения гистограмм длин участков для каждого эксперимента. Далее с помощью него построим графики для уже полученных четырёх файлов:
 
 ![len_hist.H3K4me3_H1.ENCFF254ACI.hg19](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/images/len_hist.H3K4me3_H1.ENCFF254ACI.hg19-1.png)
@@ -147,9 +147,9 @@ H3K4me3_H1.ENCFF254ACI.hg19
 10  chr8  11550415  11580674 Peak_195  1000  30259
 ```
 
-А вот в [H3K4me3_H1.ENCFF254ACI.hg19](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/H3K4me3_H1.ENCFF254ACI.hg19.bed) аутлейнеров немного больше - 4, их длины 50000+.
+А вот в [H3K4me3_H1.ENCFF254ACI.hg19](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/H3K4me3_H1.ENCFF254ACI.hg19.bed) аутлейнеров немного больше - 4, их длины 50000+.  
 
-Для удаления аутлейнеров воспользуемся [скриптом](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/src/len_filter.R). В итоге получим два файла: [H3K4me3_H1.ENCFF254ACI.hg19.filtered.bed](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/H3K4me3_H1.ENCFF254ACI.hg19.filtered.bed), [H3K4me3_H1.ENCFF668YOE.hg19.filtered.bed](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/H3K4me3_H1.ENCFF668YOE.hg19.filtered.bed).
+Для удаления аутлейнеров воспользуемся [скриптом](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/src/len_filter.R). В итоге получим два файла: [H3K4me3_H1.ENCFF254ACI.hg19.filtered.bed](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/H3K4me3_H1.ENCFF254ACI.hg19.filtered.bed), [H3K4me3_H1.ENCFF668YOE.hg19.filtered.bed](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/H3K4me3_H1.ENCFF668YOE.hg19.filtered.bed).  
 
 Теперь построим гистограммы длин участков для этих двух файлов:
 
@@ -161,16 +161,16 @@ H3K4me3_H1.ENCFF254ACI.hg19
 
 #####  Расположение пиков гистоновой метки относительно аннотированных генов
 
-Для наглядности построим график типа пай-чарт с помощью R-библиотеки ChIPseeker и библиотеки с аннотацией генов (разметкой).
-Напишем [скрипт](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/src/chip_seeker.R) позволяющий нам по bed файлу получить такую диаграмму.
+Для наглядности построим график типа пай-чарт с помощью R-библиотеки ChIPseeker и библиотеки с аннотацией генов (разметкой).  
+Напишем [скрипт](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/src/chip_seeker.R) позволяющий нам по bed файлу получить такую диаграмму.  
 
-Далее прогоним на нём оба наших отфильтрованных файла. В итоге получаем:
+Далее прогоним на нём оба наших отфильтрованных файла. В итоге получаем:  
 для [H3K4me3_H1.ENCFF254ACI.hg19.filtered.bed](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/H3K4me3_H1.ENCFF254ACI.hg19.filtered.bed):
 ![chip_seeker.H3K4me3_H1.ENCFF254ACI.hg19.filtered.plotAnnoPie](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/images/chip_seeker.H3K4me3_H1.ENCFF254ACI.hg19.filtered.plotAnnoPie-1.png)
 для [H3K4me3_H1.ENCFF668YOE.hg19.filtered.bed](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/H3K4me3_H1.ENCFF668YOE.hg19.filtered.bed):
 ![chip_seeker.H3K4me3_H1.ENCFF668YOE.hg19.filtered.plotAnnoPie](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/images/chip_seeker.H3K4me3_H1.ENCFF668YOE.hg19.filtered.plotAnnoPie-1.png)
 
-Также для каждого отфильтрованного файла построим дополнительно график, который будет показывать, где пики находятся на хромосомах. Это очень информативный и полезный график, однако, из-за огромного количества пиков он крайне плохо интерпретируется.
+Также для каждого отфильтрованного файла построим дополнительно график, который будет показывать, где пики находятся на хромосомах. Это очень информативный и полезный график, однако, из-за огромного количества пиков он крайне плохо интерпретируется.  
 Для [H3K4me3_H1.ENCFF254ACI.hg19.filtered.bed](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/H3K4me3_H1.ENCFF254ACI.hg19.filtered.bed):
 ![chip_seeker.H3K4me3_H1.ENCFF254ACI.hg19.filtered.covplot](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/images/chip_seeker.H3K4me3_H1.ENCFF254ACI.hg19.filtered.covplot-1.png)
 Для [H3K4me3_H1.ENCFF668YOE.hg19.filtered.bed](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/H3K4me3_H1.ENCFF668YOE.hg19.filtered.bed):
@@ -178,7 +178,7 @@ H3K4me3_H1.ENCFF254ACI.hg19
 
 ##### Объединение двух наборов отфильтрованных ChIP-seq пиков
 
-Для выполнения данного шага, нам понадобится перенести данные на сервер. Для это пушим все изменения с локальной машины на гитхаб, а на сервере просто подтягиваем изменения репозитория.
+Для выполнения данного шага, нам понадобится перенести данные на сервер. Для это пушим все изменения с локальной машины на гитхаб, а на сервере просто подтягиваем изменения репозитория.  
 Теперь при помощи утилиты bedtools merge объединим два наших отфильтрованных файла в один:
 
 ```bash
@@ -192,7 +192,7 @@ isegorov@laboratory01:~/ngs/hse21_H3K4me3_G4_human/data$ wc -l H3K4me3_H1.merged
 48006 H3K4me3_H1.merged.hg19.bed
 ```
 
-Как видим, в данном файле строк меньше, чем суммарно в двух файлах, из которых он образован. Это связано с наличием пересечений, которые bedtools merge удаляет.
+Как видим, в данном файле строк меньше, чем суммарно в двух файлах, из которых он образован. Это связано с наличием пересечений, которые bedtools merge удаляет.  
 
 Построим для [H3K4me3_H1.merged.hg19.bed](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/H3K4me3_H1.merged.hg19.bed) две аналогичные предыдущему пункту диаграммы:
 
@@ -217,8 +217,8 @@ track visibility=dense name="ChIP_merge"  color=50,50,200   description="H3K4me3
 https://raw.githubusercontent.com/Igor-SeVeR/hse21_H3K4me3_G4_human/main/data/H3K4me3_H1.merged.hg19.bed
 ```
 
-Все три файла загружаем по очереди во вкладку [My Data-> Custom Tracks](http://genome.ucsc.edu/cgi-bin/hgCustom). Впрочем, это было более, чем детально, рассмотрено на семинаре, так что расписывать данный пункт не вижу особого смысла.
-Далее создаём [сессию](http://genome.ucsc.edu/s/isegorov/H3K4me3_H1), в которой и сохраняем нашу визуализацию трёх файлов. При желании, уважаемый читатель может перейти в неё и поиграться.
+Все три файла загружаем по очереди во вкладку [My Data-> Custom Tracks](http://genome.ucsc.edu/cgi-bin/hgCustom). Впрочем, это было более, чем детально, рассмотрено на семинаре, так что расписывать данный пункт не вижу особого смысла.  
+Далее создаём [сессию](http://genome.ucsc.edu/s/isegorov/H3K4me3_H1), в которой и сохраняем нашу визуализацию трёх файлов. При желании, уважаемый читатель может перейти в неё и поиграться.  
 
 Для доказательства корректности merge приведу скриншот:
 
@@ -232,8 +232,8 @@ https://raw.githubusercontent.com/Igor-SeVeR/hse21_H3K4me3_G4_human/main/data/H3
 
 ##### Получение вторичной структцры ДНК
 
-Необходимо скачать соответствующую нашему эксперименту вторичную структуру ДНК. В моём слуае это структура, соответствующая G4_seq_Li_K. Нахоим её по [ссылке из таблицы c распределением](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM3003539).
-Там нас ждут два файла [Homo_all_w15_th-1_minus.hits.max.K.w50.25.bed](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/Homo_all_w15_th-1_minus.hits.max.K.w50.25.bed) и [Homo_all_w15_th-1_plus.hits.max.K.w50.25.bed](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/Homo_all_w15_th-1_plus.hits.max.K.w50.25.bed).
+Необходимо скачать соответствующую нашему эксперименту вторичную структуру ДНК. В моём слуае это структура, соответствующая G4_seq_Li_K. Нахоим её по [ссылке из таблицы c распределением](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM3003539).  
+Там нас ждут два файла [Homo_all_w15_th-1_minus.hits.max.K.w50.25.bed](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/Homo_all_w15_th-1_minus.hits.max.K.w50.25.bed) и [Homo_all_w15_th-1_plus.hits.max.K.w50.25.bed](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/Homo_all_w15_th-1_plus.hits.max.K.w50.25.bed).  
 Нам нужно их скачать.
 
 ```bash
@@ -256,7 +256,7 @@ zcat GSM3003539_Homo_all_w15_th-1_plus.hits.max.K.w50.25.bed.gz | cut -f1-5 > GS
 cat GSM3003539_Homo_minus.bed GSM3003539_Homo_plus.bed | sort -k1,1 -k2,2n | bedtools merge > GSM3003539_Homo.bed
 ```
 
-Получаем файл [GSM3003539_Homo.bed](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/GSM3003539_Homo.bed), который и представляет из себя вторичную структуру ДНК.
+Получаем файл [GSM3003539_Homo.bed](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/GSM3003539_Homo.bed), который и представляет из себя вторичную структуру ДНК.  
 Теперь поанализируем данные файлы. Посмотрим на длину файлов перед объединением и после:
 
 ```bash
@@ -268,7 +268,7 @@ isegorov@laboratory01:~/ngs/hse21_H3K4me3_G4_human/data$ wc -l GSM3003539_Homo.b
 428624 GSM3003539_Homo.bed
 ```
 
-Как видим, длина объединенённого файла вновь получилось меньше, чем сумма длин тех файлов, из которых он был образован. Это снова связано с удалением дубликатов.
+Как видим, длина объединенённого файла вновь получилось меньше, чем сумма длин тех файлов, из которых он был образован. Это снова связано с удалением дубликатов.  
 
 (Здесь и далее я не буду расписывать простейшие действия, связанные с поддержанием актуального github репозитория. Будем считать, что все полученные новые файлы сразу отправляются в него)
 
@@ -328,7 +328,7 @@ bedtools intersect -a GSM3003539_Homo.bed -b H3K4me3_H1.merged.hg19.bed > H3K4me
 
 ![len_hist.H3K4me3_H1.intersect_with_GSM3003539_Homo](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/images/len_hist.H3K4me3_H1.intersect_with_GSM3003539_Homo-1.png)
 
-Количество пиков указано на графике.
+Количество пиков указано на графике.  
 
 Также дополнительно построим пайчарт, показывающий нам расположение пиков пересечения относительно аннотированных генов:
 
@@ -343,8 +343,8 @@ track visibility=dense name="intersect_with_GSM3003539_Homo"  color=255,0,0  des
 https://raw.githubusercontent.com/Igor-SeVeR/hse21_H3K4me3_G4_human/main/data/H3K4me3_H1.intersect_with_GSM3003539_Homo.bed
 ```
 
-Снова формируем новую [сессию](http://genome.ucsc.edu/s/isegorov/H3K4me3_GSM3003539_Intersection), которая является для проекта финальной.
-Поищем в ней одно-два места, где есть пересечение между гистоновой меткой и стр-рой ДНК. Их несложно найти:
+Снова формируем новую [сессию](http://genome.ucsc.edu/s/isegorov/H3K4me3_GSM3003539_Intersection), которая является для проекта финальной.  
+Поищем в ней одно-два места, где есть пересечение между гистоновой меткой и стр-рой ДНК. Их несложно найти:  
 первое место:
 ![Intersection_secondary_struct_with_histone_marks_genome_ucsc_edu_first](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/images/Intersection_secondary_struct_with_histone_marks_genome_ucsc_edu_first.png)
 координаты пересечения = chr1:78,957,334-78,957,438;
@@ -354,8 +354,8 @@ https://raw.githubusercontent.com/Igor-SeVeR/hse21_H3K4me3_G4_human/main/data/H3
 
 ##### Ассоциирование полученных пересечений с ближайшими генами
 
-С помощью R-библиотеки ChIPpeakAnno напишем [скрипт](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/src/ChIPpeakAnno.R), который позволит нам ассоциировать полученные пересечения с ближайшими к ним генами.
-После выполнения скрипта получим два файла: [H3K4me3_H1.intersect_with_GSM3003539_Homo.genes.txt](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/H3K4me3_H1.intersect_with_GSM3003539_Homo.genes.txt), [H3K4me3_H1.intersect_with_GSM3003539_Homo.genes_uniq.txt](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/H3K4me3_H1.intersect_with_GSM3003539_Homo.genes_uniq.txt).
+С помощью R-библиотеки ChIPpeakAnno напишем [скрипт](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/src/ChIPpeakAnno.R), который позволит нам ассоциировать полученные пересечения с ближайшими к ним генами.  
+После выполнения скрипта получим два файла: [H3K4me3_H1.intersect_with_GSM3003539_Homo.genes.txt](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/H3K4me3_H1.intersect_with_GSM3003539_Homo.genes.txt), [H3K4me3_H1.intersect_with_GSM3003539_Homo.genes_uniq.txt](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/H3K4me3_H1.intersect_with_GSM3003539_Homo.genes_uniq.txt).  
 Изучим их строение.
 
 ```bash
@@ -379,7 +379,7 @@ isegorov@laboratory01:~/ngs/hse21_H3K4me3_G4_human/data$ wc -l  H3K4me3_H1.inter
 9171 H3K4me3_H1.intersect_with_GSM3003539_Homo.genes_uniq.txt
 ```
 
-Получаем 9171 уникальный ген.
+Получаем 9171 уникальный ген.  
 
 Теперь изучим второй файл:
 
@@ -409,8 +409,8 @@ isegorov@laboratory01:~/ngs/hse21_H3K4me3_G4_human/data$ wc -l  H3K4me3_H1.inter
 
 ##### GO-анализ для полученных уникальных генов
 
-GO - генная онтология. Это анализ генов, который позвляет предположить, к какой "системе" относится данный набор генов (понятие "система" станет понятно после вывода результатов GO-анализа). Это вероятностный тест, использущий в своей основе критерий Фишера.
-Для проведения данного анализа воспользумся [ресурсом](http://pantherdb.org/). Как проводить сам эксперимент на данном ресурсе было детально описано в [инструкции выполнения проекта](https://docs.google.com/document/d/1wtbNQ0ZN3ruHHIg5-PgxuGyX2TiIoJSD2GkzR-AyeCI/edit#), так что данные шаги я описывать не буду.
+GO - генная онтология. Это анализ генов, который позвляет предположить, к какой "системе" относится данный набор генов (понятие "система" станет понятно после вывода результатов GO-анализа). Это вероятностный тест, использущий в своей основе критерий Фишера.  
+Для проведения данного анализа воспользумся [ресурсом](http://pantherdb.org/). Как проводить сам эксперимент на данном ресурсе было детально описано в [инструкции выполнения проекта](https://docs.google.com/document/d/1wtbNQ0ZN3ruHHIg5-PgxuGyX2TiIoJSD2GkzR-AyeCI/edit#), так что данные шаги я описывать не буду.  
 Загружаем наши уникальные гены, ставим эксперимент. В итоге получаем следующий результат:
 
 ![GO_H3K4me3_H1.intersect_with_GSM3003539_Homo.genes_uniq_result](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/images/GO_H3K4me3_H1.intersect_with_GSM3003539_Homo.genes_uniq_result.png)
@@ -418,7 +418,7 @@ GO - генная онтология. Это анализ генов, котор
 У нас немного unmapped или multiple mapped генов, что не может не радовать. Также получаем [таблицу](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/GO_H3K4me3_H1.intersect_with_GSM3003539_Homo.genes_uniq_analysis.txt) с предсказанными категориями. Расмотрим самые значимые из них:
 
 |GO biological process complete | # | # | expected | Fold Enrichment | +/- | raw P value | FDR |
-| -------- | ------------- | ---------------- | ---------- | ------- | ------- | ------- | ------- |
+| ------------------------------ | ------------------------------ | ------------------------------ | ------------------------------ | ------------------------------ | ------------------------------ | ------------------------------ | ------------------------------ |
 detection of chemical stimulus involved in sensory perception|486|0|200.68|< 0.01|-|2.54E-74|4.02E-70
 detection of chemical stimulus involved in sensory perception of smell|441|0|182.10|< 0.01|-|3.43E-67|2.71E-63
 detection of chemical stimulus|522|13|215.54|.06|-|7.40E-61|3.90E-57
