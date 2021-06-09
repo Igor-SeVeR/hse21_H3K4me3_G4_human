@@ -3,7 +3,7 @@ source('lib.R')
 
 # file name, with which we work
 #NAME <- 'H3K4me3_H1.ENCFF254ACI.hg19'
-NAME <- 'H3K4me3_H1.ENCFF668YOE.hg19'
+#NAME <- 'H3K4me3_H1.ENCFF668YOE.hg19'
 
 # code to read reads
 bed_df <- read.delim(paste0(DATA_DIR, NAME, '.bed'), as.is = TRUE, header = FALSE)
@@ -31,6 +31,6 @@ head(bed_df, 10)
 # writing filtered file
 bed_df %>%
   select(-len) %>%
-  write.table(file=paste0(DATA_DIR, NAME ,'.filtered.bed'),
+  write.table(file=paste0(DATA_DIR, NAME,'.filtered.bed'),
               col.names = FALSE, row.names = FALSE, sep = '\t', quote = FALSE)
 
