@@ -159,7 +159,7 @@ H3K4me3_H1.ENCFF254ACI.hg19
 
 Количество пиков можно видеть на графиках.
 
-####  Расположение пиков гистоновой метки относительно аннотированных генов
+#####  Расположение пиков гистоновой метки относительно аннотированных генов
 
 Для наглядности построим график типа пай-чарт с помощью R-библиотеки ChIPseeker и библиотеки с аннотацией генов (разметкой).
 Напишем [скрипт](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/src/chip_seeker.R) позволяющий нам по bed файлу получить такую диаграмму.
@@ -176,7 +176,7 @@ H3K4me3_H1.ENCFF254ACI.hg19
 Для [H3K4me3_H1.ENCFF668YOE.hg19.filtered.bed](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/H3K4me3_H1.ENCFF668YOE.hg19.filtered.bed):
 ![chip_seeker.H3K4me3_H1.ENCFF668YOE.hg19.filtered.covplot](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/images/chip_seeker.H3K4me3_H1.ENCFF668YOE.hg19.filtered.covplot-1.png)
 
-#### Объединение двух наборов отфильтрованных ChIP-seq пиков
+##### Объединение двух наборов отфильтрованных ChIP-seq пиков
 
 Для выполнения данного шага, нам понадобится перенести данные на сервер. Для это пушим все изменения с локальной машины на гитхаб, а на сервере просто подтягиваем изменения репозитория.
 Теперь при помощи утилиты bedtools merge объединим два наших отфильтрованных файла в один:
@@ -200,9 +200,9 @@ isegorov@laboratory01:~/ngs/hse21_H3K4me3_G4_human/data$ wc -l H3K4me3_H1.merged
 
 ![chip_seeker.H3K4me3_H1.merged.hg19.covplot](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/images/chip_seeker.H3K4me3_H1.merged.hg19.covplot-1.png)
 
-По графикам можно заметить, что данные на них ожидаемы (нечто среднее между графиками двух файлов, из которых образован [H3K4me3_H1.merged.hg19.bed](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/H3K4me3_H1.merged.hg19.bed))
+По графикам можно заметить, что данные на них ожидаемы (для пайчарта - нечто среднее между графиками двух файлов, из которых образован [H3K4me3_H1.merged.hg19.bed](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/H3K4me3_H1.merged.hg19.bed), для второго же графика - их объединение).
 
-#### Визуализация исходных наборов ChIP-seq пиков
+##### Визуализация исходных наборов ChIP-seq пиков
 
 Кульминацией первой части проекта является загрузка всех трёх файлов: [H3K4me3_H1.merged.hg19.bed](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/H3K4me3_H1.merged.hg19.bed), [H3K4me3_H1.ENCFF668YOE.hg19.filtered.bed](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/H3K4me3_H1.ENCFF668YOE.hg19.filtered.bed), [H3K4me3_H1.ENCFF254ACI.hg19.filtered.bed](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/H3K4me3_H1.ENCFF254ACI.hg19.filtered.bed)
 на [genome.ucsc.edu](genome.ucsc.edu), где мы визуализируем наши наборы ChIP-seq пиков, а также проверим корректность merge.
@@ -217,7 +217,7 @@ track visibility=dense name="ChIP_merge"  color=50,50,200   description="H3K4me3
 https://raw.githubusercontent.com/Igor-SeVeR/hse21_H3K4me3_G4_human/main/data/H3K4me3_H1.merged.hg19.bed
 ```
 
-Все 3 файла загружаем по очереди во вкладку [My Data-> Custom Tracks](http://genome.ucsc.edu/cgi-bin/hgCustom). Впрочем, это было более, чем детально рассмотрено на семинаре, так что расписывать данный пункт не вижу особого смысла.
+Все три файла загружаем по очереди во вкладку [My Data-> Custom Tracks](http://genome.ucsc.edu/cgi-bin/hgCustom). Впрочем, это было более, чем детально, рассмотрено на семинаре, так что расписывать данный пункт не вижу особого смысла.
 Далее создаём [сессию](http://genome.ucsc.edu/s/isegorov/H3K4me3_H1), в которой и сохраняем нашу визуализацию трёх файлов. При желании, уважаемый читатель может перейти в неё и поиграться.
 
 Для доказательства корректности merge приведу скриншот:
@@ -225,3 +225,80 @@ https://raw.githubusercontent.com/Igor-SeVeR/hse21_H3K4me3_G4_human/main/data/H3
 ![Checking_merging_correctness_genome_ucsc_edu.png](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/images/Checking_merging_correctness_genome_ucsc_edu.png)
 
 Как видим из скриншота: объединение полностью покрывает оба набора ChIP-seq пиков. При большом желании можно походить по хромосоме в сессии и убедиться в этом окончательно.
+
+### Часть 2
+
+#### Анализ участков вторичной структуры ДНК
+
+##### Получение вторичной структцры ДНК
+
+Необходимо скачать соответствующую нашему эксперименту вторичную структуру ДНК. В моём слуае это структура, соответствующая G4_seq_Li_K. Нахоим её по [ссылке из таблицы c распределением](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM3003539).
+Там нас ждут два файла [Homo_all_w15_th-1_minus.hits.max.K.w50.25.bed](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/Homo_all_w15_th-1_minus.hits.max.K.w50.25.bed) и [Homo_all_w15_th-1_plus.hits.max.K.w50.25.bed](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/Homo_all_w15_th-1_plus.hits.max.K.w50.25.bed).
+Нам нужно их скачать.
+
+```bash
+isegorov@laboratory01:~/ngs/hse21_H3K4me3_G4_human/data$ wc -l Homo_all_w15_th-1_minus.hits.max.K.w50.25.bed
+216321 Homo_all_w15_th-1_minus.hits.max.K.w50.25.bed
+isegorov@laboratory01:~/ngs/hse21_H3K4me3_G4_human/data$ wc -l Homo_all_w15_th-1_plus.hits.max.K.w50.25.bed
+217951 Homo_all_w15_th-1_plus.hits.max.K.w50.25.bed
+```
+
+Однако, на данный момент в них слишком много ненужной нам информации. Обрежем ненужные столбцы:
+
+```bash
+zcat GSM3003539_Homo_all_w15_th-1_minus.hits.max.K.w50.25.bed.gz | cut -f1-5 > GSM3003539_Homo_minus.bed
+zcat GSM3003539_Homo_all_w15_th-1_plus.hits.max.K.w50.25.bed.gz | cut -f1-5 > GSM3003539_Homo_plus.bed
+```
+
+Отлично! Всё что нам осталось - это объединить два данных файла:
+
+```bash
+cat GSM3003539_Homo_minus.bed GSM3003539_Homo_plus.bed | sort -k1,1 -k2,2n | bedtools merge > GSM3003539_Homo.bed
+```
+
+Получаем файл [GSM3003539_Homo.bed](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/GSM3003539_Homo.bed), который и представляет из себя вторичную структуру ДНК.
+Теперь поанализируем данные файлы. Посмотрим на длину файлов перед объединением и после:
+
+```bash
+isegorov@laboratory01:~/ngs/hse21_H3K4me3_G4_human/data$ wc -l Homo_all_w15_th-1_minus.hits.max.K.w50.25.bed
+216321 Homo_all_w15_th-1_minus.hits.max.K.w50.25.bed
+isegorov@laboratory01:~/ngs/hse21_H3K4me3_G4_human/data$ wc -l Homo_all_w15_th-1_plus.hits.max.K.w50.25.bed
+217951 Homo_all_w15_th-1_plus.hits.max.K.w50.25.bed
+isegorov@laboratory01:~/ngs/hse21_H3K4me3_G4_human/data$ wc -l GSM3003539_Homo.bed
+428624 GSM3003539_Homo.bed
+```
+
+Как видим, длина объединенённого файла вновь получилось меньше, чем сумма длин тех файлов, из которых он был образован. Это снова связано с удалением дубликатов.
+
+(Здесь и далее я не буду расписывать простейшие действия, связанные с поддержанием актуального github репозитория. Будем считать, что все полученные новые файлы сразу отправляются в него)
+
+##### Распределение длин участков вторичной структуры ДНК
+
+С помощью уже знакомого нам [скрипта](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/src/len_hist.R) строим гистограмму:
+
+![len_hist.GSM3003539_Homo](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/images/len_hist.GSM3003539_Homo-1.png)
+
+Количество пиков указано на графике.
+
+##### Расположение участков структуры ДНК относительно аннотированных генов
+
+С данной операцией мы тоже уже хорошо знакомы, так что запускаем [скрипт](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/src/chip_seeker.R) на [GSM3003539_Homo.bed](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/GSM3003539_Homo.bed) и получаем пайчарт:
+
+![chip_seeker.GSM3003539_Homo.plotAnnoPie](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/images/chip_seeker.GSM3003539_Homo.plotAnnoPie-1.png)
+
+##### Визуализация вторичной структуры ДНК
+
+Как и в первой части, кульминацией второй части проекта является подгрузка файла со вторичной структурой ДНК на [genome.ucsc.edu](genome.ucsc.edu), где она визуализируется.
+
+```bash
+track visibility=dense name="GSM3003539_Homo"  color=100,100,100   description="GSM3003539_Homo.bed"
+https://raw.githubusercontent.com/Igor-SeVeR/hse21_H3K4me3_G4_human/main/data/GSM3003539_Homo.bed
+```
+
+В итоге получаем новую [сессию](http://genome.ucsc.edu/s/isegorov/H3K4me3_H1_GSM3003539_Homo), где уже можно поизучать и местонахождение вторичной структуры ДНК.
+
+![Added_secondary_dna_genome_ucsc_edu](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/images/Added_secondary_dna_genome_ucsc_edu.png)
+
+Фрагмент полученной визуализации.
+
+
