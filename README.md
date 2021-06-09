@@ -301,4 +301,135 @@ https://raw.githubusercontent.com/Igor-SeVeR/hse21_H3K4me3_G4_human/main/data/GS
 
 Фрагмент полученной визуализации.
 
+### Часть 3
 
+#### Анализ пересечений гистоновой метки и структуры ДНК
+
+##### Построение пересечения гистоновых меток с структурой ДНК
+
+Найти пересечение гистновых меток и вторичной структуры ДНК нам позволит bedtools intersect:
+
+```bash
+bedtools intersect -a GSM3003539_Homo.bed -b H3K4me3_H1.merged.hg19.bed > H3K4me3_H1.intersect_with_GSM3003539_Homo.bed
+```
+
+Получаем файл [H3K4me3_H1.intersect_with_GSM3003539_Homo.bed](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/H3K4me3_H1.intersect_with_GSM3003539_Homo.bed). Сразу изучим его длину.
+
+```bash
+39812 H3K4me3_H1.intersect_with_GSM3003539_Homo.bed
+48006 H3K4me3_H1.merged.hg19.bed
+```
+
+Данное число пересечений является однозначно великолепным. Оно составляет свыше 0,8 всех пиков эксперимента, что достаточно много.
+
+##### Распределение длин пересечений
+
+Вновь возвращаемся к уже хорошо знакомому нам [скрипту](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/src/len_hist.R), с помощью которого строим гистограмму длин пересечений:
+
+![len_hist.H3K4me3_H1.intersect_with_GSM3003539_Homo](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/images/len_hist.H3K4me3_H1.intersect_with_GSM3003539_Homo-1.png)
+
+Количество пиков указано на графике.
+
+Также дополнительно построим пайчарт, показывающий нам расположение пиков пересечения относительно аннотированных генов:
+
+![chip_seeker.H3K4me3_H1.intersect_with_GSM3003539_Homo.plotAnnoPie](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/images/chip_seeker.H3K4me3_H1.intersect_with_GSM3003539_Homo.plotAnnoPie-1.png)
+
+##### Визуализация в геномном браузере
+
+Подгружаем наш [H3K4me3_H1.intersect_with_GSM3003539_Homo.bed](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/H3K4me3_H1.intersect_with_GSM3003539_Homo.bed) в [genome.ucsc.edu](genome.ucsc.edu):
+
+```bash
+track visibility=dense name="intersect_with_GSM3003539_Homo"  color=255,0,0  description="H3K4me3_H1.intersect_with_GSM3003539_Homo.bed"
+https://raw.githubusercontent.com/Igor-SeVeR/hse21_H3K4me3_G4_human/main/data/H3K4me3_H1.intersect_with_GSM3003539_Homo.bed
+```
+
+Снова формируем новую [сессию](http://genome.ucsc.edu/s/isegorov/H3K4me3_GSM3003539_Intersection), которая является для проекта финальной.
+Поищем в ней одно-два места, где есть пересечение между гистоновой меткой и стр-рой ДНК. Их несложно найти:
+первое место:
+![Intersection_secondary_struct_with_histone_marks_genome_ucsc_edu_first](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/images/Intersection_secondary_struct_with_histone_marks_genome_ucsc_edu_first.png)
+координаты пересечения = chr1:78,957,334-78,957,438;
+второе место:
+![Intersection_secondary_struct_with_histone_marks_genome_ucsc_edu_second](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/images/Intersection_secondary_struct_with_histone_marks_genome_ucsc_edu_second.png)
+координаты пересечения = chr1:75,598,259-75,598,363.
+
+##### Ассоциирование полученных пересечений с ближайшими генами
+
+С помощью R-библиотеки ChIPpeakAnno напишем [скрипт](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/src/ChIPpeakAnno.R), который позволит нам ассоциировать полученные пересечения с ближайшими к ним генами.
+После выполнения скрипта получим два файла: [H3K4me3_H1.intersect_with_GSM3003539_Homo.genes.txt](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/H3K4me3_H1.intersect_with_GSM3003539_Homo.genes.txt), [H3K4me3_H1.intersect_with_GSM3003539_Homo.genes_uniq.txt](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/H3K4me3_H1.intersect_with_GSM3003539_Homo.genes_uniq.txt).
+Изучим их строение.
+
+```bash
+isegorov@laboratory01:~/ngs/hse21_H3K4me3_G4_human/data$ head H3K4me3_H1.intersect_with_GSM3003539_Homo.genes_uniq.txt
+LINC01128
+SAMD11
+KLHL17
+NOC2L
+PLEKHN1
+PERM1
+HES4
+ISG15
+AGRN
+C1orf159
+```
+
+Делаем закономерный вывод - файл [H3K4me3_H1.intersect_with_GSM3003539_Homo.genes_uniq.txt](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/H3K4me3_H1.intersect_with_GSM3003539_Homo.genes_uniq.txt) содержит перечисление всех уникальных генов, с которыми были ассоциированы пересечения. Давайте выясним, сколько их всего:
+
+```bash
+isegorov@laboratory01:~/ngs/hse21_H3K4me3_G4_human/data$ wc -l  H3K4me3_H1.intersect_with_GSM3003539_Homo.genes_uniq.txt
+9171 H3K4me3_H1.intersect_with_GSM3003539_Homo.genes_uniq.txt
+```
+
+Получаем 9171 уникальный ген.
+
+Теперь изучим второй файл:
+
+```bash
+isegorov@laboratory01:~/ngs/hse21_H3K4me3_G4_human/data$ head H3K4me3_H1.intersect_with_GSM3003539_Homo.genes.txt
+seqnames        start   end     width   strand  peak    feature feature.ranges.start    feature.ranges.end      feature.ranges.width    feature.strand  distance        insideFeature       distanceToSite  symbol
+chr1    762044  762071  28      *       X00001  643837  762971  794826  31856   +       899     upstream        899     LINC01128
+chr1    860270  860419  150     *       X00011  148398  860530  879961  19432   +       110     upstream        110     SAMD11
+chr1    894601  894710  110     *       X00033  339451  895967  901099  5133    +       1256    upstream        1256    KLHL17
+chr1    894601  894710  110     *       X00033  26155   879583  894679  15097   -       0       overlapStart    0       NOC2L
+chr1    895441  896055  615     *       X00034  339451  895967  901099  5133    +       0       overlapStart    0       KLHL17
+chr1    895441  896055  615     *       X00034  26155   879583  894679  15097   -       761     upstream        761     NOC2L
+chr1    900929  901048  120     *       X00035  84069   901877  910484  8608    +       828     upstream        828     PLEKHN1
+chr1    901189  901408  220     *       X00036  84069   901877  910484  8608    +       468     upstream        468     PLEKHN1
+chr1    919360  919448  89      *       X00042  84808   910579  917473  6895    -       1886    upstream        1886    PERM1
+```
+
+Снова делаем вывод: файл [H3K4me3_H1.intersect_with_GSM3003539_Homo.genes.txt](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/H3K4me3_H1.intersect_with_GSM3003539_Homo.genes.txt) содежит в себе первой строкой - описание формата, а далее список всех пересечений, каждому из которых ассоциирован определённый ген.
+Посмотрим на его длину:
+
+```bash
+isegorov@laboratory01:~/ngs/hse21_H3K4me3_G4_human/data$ wc -l  H3K4me3_H1.intersect_with_GSM3003539_Homo.genes.txt
+15984 H3K4me3_H1.intersect_with_GSM3003539_Homo.genes.txt
+```
+
+То есть количество пиков с ассоциированными им генами равно 15984 - 1(строка с описанием формата) = 15983
+
+##### GO-анализ для полученных уникальных генов
+
+GO - генная онтология. Это анализ генов, который позвляет предположить, к какой "системе" относится данный набор генов (понятие "система" станет понятно после вывода результатов GO-анализа). Это вероятностный тест, использущий в своей основе критерий Фишера.
+Для проведения данного анализа воспользумся [ресурсом](http://pantherdb.org/). Как проводить сам эксперимент на данном ресурсе было детально описано в [инструкции выполнения проекта](https://docs.google.com/document/d/1wtbNQ0ZN3ruHHIg5-PgxuGyX2TiIoJSD2GkzR-AyeCI/edit#), так что данные шаги я описывать не буду.
+Загружаем наши уникальные гены, ставим эксперимент. В итоге получаем следующий результат:
+
+![GO_H3K4me3_H1.intersect_with_GSM3003539_Homo.genes_uniq_result](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/images/GO_H3K4me3_H1.intersect_with_GSM3003539_Homo.genes_uniq_result.png)
+
+У нас немного unmapped или multiple mapped генов, что не может не радовать. Также получаем [таблицу](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/GO_H3K4me3_H1.intersect_with_GSM3003539_Homo.genes_uniq_analysis.txt) с предсказанными категориями. Расмотрим самые значимые из них:
+
+|GO biological process complete | # | # | expected | Fold Enrichment | +/- | raw P value | FDR |
+| -------- | ------------- | ---------------- | ---------- | ------- | ------- | ------- | ------- |
+detection of chemical stimulus involved in sensory perception|486|0|200.68|< 0.01|-|2.54E-74|4.02E-70
+detection of chemical stimulus involved in sensory perception of smell|441|0|182.10|< 0.01|-|3.43E-67|2.71E-63
+detection of chemical stimulus|522|13|215.54|.06|-|7.40E-61|3.90E-57
+sensory perception of chemical stimulus|543|26|224.21|.12|-|9.61E-52|3.80E-48
+sensory perception of smell|468|17|193.24|.09|-|2.22E-49|7.01E-46
+detection of stimulus involved in sensory perception|557|40|229.99|.17|-|1.45E-43|3.82E-40
+regulation of cellular metabolic process|6138|3188|2534.48|1.26|+|7.82E-37|1.77E-33
+regulation of primary metabolic process|5925|3081|2446.53|1.26|+|2.01E-35|3.97E-32
+positive regulation of cellular process|5741|2996|2370.55|1.26|+|5.22E-35|9.16E-32
+regulation of nitrogen compound metabolic process|5740|2991|2370.14|1.26|+|1.70E-34|2.68E-31
+regulation of metabolic process|6874|3480|2838.38|1.23|+|5.49E-34|7.89E-31
+detection of stimulus|721|101|297.71|.34|-|1.38E-31|1.81E-28
+
+Данная таблица была получена путём сортировки значения FDR в результах эксперимента на том же [ресурсе](http://pantherdb.org/)
