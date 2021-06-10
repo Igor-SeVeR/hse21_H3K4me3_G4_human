@@ -23,21 +23,21 @@
 
 ##### Подготовка файлов
 
-Переходим в папку data и скачиваем туда 2 .bed файла ChIP-seq экспериментов из ENCODE:
+Переходим в папку data и скачиваем туда два .bed файла ChIP-seq экспериментов из ENCODE:
 
 ```bash
 wget https://www.encodeproject.org/files/ENCFF254ACI/@@download/ENCFF254ACI.bed.gz
 wget https://www.encodeproject.org/files/ENCFF668YOE/@@download/ENCFF668YOE.bed.gz
 ```
 
-Далее оставим а данных файлах только первые 5 столбцов:
+Далее оставим а данных файлах только первые пять столбцов:
 
 ```bash
 zcat ENCFF254ACI.bed.gz  |  cut -f1-5 > H3K4me3_H1.ENCFF254ACI.hg38.bed
 zcat ENCFF668YOE.bed.gz  |  cut -f1-5 > H3K4me3_H1.ENCFF668YOE.hg38.bed
 ```
 
-Мы скачали данные файлы в формате hg38, нам необхоимо перегнать данные файлы в формат hg18. Для этого мы скачиваем файл с сопоставлением координат одного формата и другого:
+Мы скачали данные файлы в формате hg38, нам необхоимо перегнать данные файлы в формат hg19. Для этого мы скачиваем файл с сопоставлением координат одного формата и другого:
 
 ```bash
 wget https://hgdownload.cse.ucsc.edu/goldenpath/hg38/liftOver/hg38ToHg19.over.chain.gz
@@ -70,7 +70,7 @@ isegorov@laboratory01:~/ngs/final_project$ wc -l H3K4me3_H1.ENCFF668YOE.unmapped
 Как видим, числа не сходятся: для  
 ENCFF668YOE: 34171 - 34105 != 132;  
 ENCFF254ACI: 26245 - 26165 != 160.  
-Это достаточно легко объяснить - для этого изучим строение файлов umapped:
+Это достаточно легко объяснить - для этого изучим строение файлов unmapped:
 
 
 ```bash
@@ -87,7 +87,7 @@ chr1    145426765       145427089       Peak_13760      71
 chr1    145427250       145430609       Peak_2612       386
 ```
 
-Как видим каждая запись занимает две строчки - причина, по которой запись не была сматчена и сама запись.  
+Как видим, каждая запись занимает две строчки - причина, по которой запись не была сматчена и сама запись.  
 Имея это знание, получаем иные числа:  
 ENCFF668YOE: 34171 - 34105 = 66;  
 ENCFF254ACI: 26245 - 26165 = 80.  
@@ -128,7 +128,7 @@ H3K4me3_H1.ENCFF668YOE.hg19
 10  chr2  64066889  64073672   Peak_877   530 6783
 ```
 
-Видим, что в [H3K4me3_H1.ENCFF668YOE.hg19](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/H3K4me3_H1.ENCFF668YOE.hg19.bed) есть один аутлейнер - рид, длина которого 9514, его нужно удалить.
+Видим, что в [H3K4me3_H1.ENCFF668YOE.hg19](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/H3K4me3_H1.ENCFF668YOE.hg19.bed) есть один аутлейнер - пик, длина которого 9514, его нужно удалить.
 
 
 ```bash
@@ -192,7 +192,7 @@ isegorov@laboratory01:~/ngs/hse21_H3K4me3_G4_human/data$ wc -l H3K4me3_H1.merged
 48006 H3K4me3_H1.merged.hg19.bed
 ```
 
-Как видим, в данном файле строк меньше, чем суммарно в двух файлах, из которых он образован. Это связано с наличием пересечений, которые bedtools merge удаляет.  
+Как видим, в данном файле строк меньше, чем суммарно в двух файлах, из которых он образован. Это связано с наличием дубликатов, которые bedtools merge удаляет.  
 
 Построим для [H3K4me3_H1.merged.hg19.bed](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/H3K4me3_H1.merged.hg19.bed) две аналогичные предыдущему пункту диаграммы:
 
@@ -232,7 +232,7 @@ https://raw.githubusercontent.com/Igor-SeVeR/hse21_H3K4me3_G4_human/main/data/H3
 
 ##### Получение вторичной структцры ДНК
 
-Необходимо скачать соответствующую нашему эксперименту вторичную структуру ДНК. В моём слуае это структура, соответствующая G4_seq_Li_K. Нахоим её по [ссылке из таблицы c распределением](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM3003539).  
+Необходимо скачать соответствующую нашему эксперименту вторичную структуру ДНК. В моём случае это структура, соответствующая G4_seq_Li_K. Находим её по [ссылке из таблицы c распределением](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM3003539).  
 Там нас ждут два файла [Homo_all_w15_th-1_minus.hits.max.K.w50.25.bed](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/Homo_all_w15_th-1_minus.hits.max.K.w50.25.bed) и [Homo_all_w15_th-1_plus.hits.max.K.w50.25.bed](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/data/Homo_all_w15_th-1_plus.hits.max.K.w50.25.bed).  
 Нам нужно их скачать.
 
@@ -295,7 +295,7 @@ track visibility=dense name="GSM3003539_Homo"  color=100,100,100   description="
 https://raw.githubusercontent.com/Igor-SeVeR/hse21_H3K4me3_G4_human/main/data/GSM3003539_Homo.bed
 ```
 
-В итоге получаем новую [сессию](http://genome.ucsc.edu/s/isegorov/H3K4me3_H1_GSM3003539_Homo), где уже можно поизучать и местонахождение вторичной структуры ДНК.
+В итоге получаем новую [сессию](http://genome.ucsc.edu/s/isegorov/H3K4me3_H1_GSM3003539_Homo), где уже можно поизучать местонахождение вторичной структуры ДНК.
 
 ![Added_secondary_dna_genome_ucsc_edu](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/images/Added_secondary_dna_genome_ucsc_edu.png)
 
@@ -344,7 +344,7 @@ https://raw.githubusercontent.com/Igor-SeVeR/hse21_H3K4me3_G4_human/main/data/H3
 ```
 
 Снова формируем новую [сессию](http://genome.ucsc.edu/s/isegorov/H3K4me3_GSM3003539_Intersection), которая является для проекта финальной.  
-Поищем в ней одно-два места, где есть пересечение между гистоновой меткой и стр-рой ДНК. Их несложно найти:  
+Поищем в ней одно-два места, где есть пересечение между гистоновой меткой и структурой ДНК. Их несложно найти:  
 первое место:
 ![Intersection_secondary_struct_with_histone_marks_genome_ucsc_edu_first](https://github.com/Igor-SeVeR/hse21_H3K4me3_G4_human/blob/main/images/Intersection_secondary_struct_with_histone_marks_genome_ucsc_edu_first.png)
 координаты пересечения = chr1:78,957,334-78,957,438;
@@ -432,4 +432,10 @@ regulation of nitrogen compound metabolic process|5740|2991|2370.14|1.26|+|1.70E
 regulation of metabolic process|6874|3480|2838.38|1.23|+|5.49E-34|7.89E-31
 detection of stimulus|721|101|297.71|.34|-|1.38E-31|1.81E-28
 
-Данная таблица была получена путём сортировки значения FDR в результах эксперимента на том же [ресурсе](http://pantherdb.org/)
+Данная таблица была получена путём сортировки значения FDR в результах эксперимента на томже [ресурсе](http://pantherdb.org/)  
+
+На данном шаге индивидуальная часть проекта заканчивается.  
+Считаю, что главных целей данного проекта достиг - изучил и поискал участки генома, где
+определенная гистоновая метка присутствует в местах образования одной из вторичных структур ДНК, 
+а также получил важные практические навыки биоинформатика - работа в командной строке с утилитой bedtools, визуализация данных в UCSC Genome Browser, конвертация координат участков между разными версиями генома.
+
